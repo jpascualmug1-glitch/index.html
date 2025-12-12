@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>CultureSwap Hub - Prototype</title>
+    <title>CultureSwap Hub - v3.1</title>
     <!-- Tailwind CSS for fast design -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for icons -->
@@ -36,21 +36,24 @@
         .mobile-container::-webkit-scrollbar {
             display: none;
         }
-        /* SCREEN LOGIC: Critical for hiding sections */
+        
+        /* --- SCREEN LOGIC FIXED --- */
         .screen {
-            display: none !important; /* Force hide by default */
+            display: none !important; 
             flex-direction: column;
             height: 100%;
             animation: fadeIn 0.3s ease-in-out;
-            width: 100%;
         }
         .screen.active {
-            display: flex !important; /* Show only when active */
+            display: flex !important;
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        /* Chat Bubbles */
         .chat-bubble-me {
             background-color: #3B82F6;
             color: white;
@@ -133,7 +136,7 @@
             <div class="text-6xl mb-4"><i class="fa-solid fa-earth-americas"></i></div>
             <h1 class="text-3xl font-bold tracking-wider">CultureSwap</h1>
             <p class="text-blue-200 mt-2">Connect. Learn. Belong.</p>
-            <div class="mt-8 animate-pulse text-sm">Loading v2.1...</div>
+            <div class="mt-8 animate-pulse text-sm font-semibold text-blue-200">Loading v3.1...</div>
         </div>
 
         <!-- SCREEN 2: LOGIN -->
@@ -148,6 +151,7 @@
                 <i class="fa-solid fa-school"></i> Log in with School ID
             </button>
             
+            <!-- SIGN UP BUTTON -->
             <button onclick="goToScreen('screen-signup')" class="w-full bg-white border-2 border-blue-600 text-blue-600 font-bold py-3 px-4 rounded-xl mb-4 hover:bg-blue-50 transition">
                 New Student? Sign Up
             </button>
@@ -155,7 +159,7 @@
             <p class="text-xs text-center text-gray-400 mt-4">Verified by Lincoln High School District</p>
         </div>
 
-        <!-- NEW SCREEN: SIGN UP -->
+        <!-- SCREEN: SIGN UP -->
         <div id="screen-signup" class="screen bg-white">
             <div class="p-6 h-full flex flex-col">
                 <button onclick="goToScreen('screen-login')" class="text-gray-400 hover:text-gray-800 mb-6 flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back</button>
@@ -168,12 +172,6 @@
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-1">Full Name</label>
                         <input type="text" id="signup-name" placeholder="Ex: Jorge Perez" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
-                    </div>
-
-                    <!-- Zip Code (NEW FEATURE) -->
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">School Zip Code <span class="text-blue-500 text-xs">(For Local Community)</span></label>
-                        <input type="number" id="signup-zip" placeholder="e.g. 43210" class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-500">
                     </div>
 
                     <!-- Organization -->
@@ -226,7 +224,7 @@
                     <div>
                         <!-- Dynamic Name ID -->
                         <h1 id="user-greeting" class="text-lg font-bold text-gray-800">Hi, Student 👋</h1>
-                        <p id="user-location" class="text-xs text-gray-500 flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Community: Zip 43210</p>
+                        <p class="text-xs text-gray-500">Exchange Student</p>
                     </div>
                 </div>
                 <!-- SOS BUTTON -->
@@ -244,17 +242,17 @@
                         <h3 class="font-bold text-lg">Welcome Aboard! 🚀</h3>
                     </div>
                     <p class="text-blue-100 text-sm mb-4 leading-relaxed">You haven't matched with a mentor yet. Find a veteran student to help you navigate your exchange year.</p>
-                    <button onclick="goToScreen('screen-mentor-list')" class="bg-white text-blue-600 px-4 py-3 rounded-xl text-sm font-bold w-full shadow-md flex justify-center items-center gap-2 hover:bg-gray-50 transition">
+                    <button onclick="goToScreen('screen-match')" class="bg-white text-blue-600 px-4 py-3 rounded-xl text-sm font-bold w-full shadow-md flex justify-center items-center gap-2 hover:bg-gray-50 transition">
                         <i class="fa-solid fa-magnifying-glass"></i> Find My Mentor
                     </button>
                 </div>
 
-                <!-- Active Mentor Card (FORCE HIDDEN INITIALLY) -->
+                <!-- Active Mentor Card (FORCE HIDDEN INITIALLY - NO CHAT) -->
                 <div id="card-mentor-active" style="display: none;" class="bg-white border border-blue-100 rounded-2xl p-5 mb-6 shadow-md">
                     <div class="flex justify-between items-center">
                         <div>
-                             <h3 id="home-mentor-name" class="font-bold text-lg text-gray-800">Your Mentor</h3>
-                             <p id="home-mentor-role" class="text-xs text-gray-500">Exchange Alumni</p>
+                             <h3 class="font-bold text-lg text-gray-800">Your Mentor</h3>
+                             <p class="text-xs text-gray-500">Exchange Alumni</p>
                         </div>
                         <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
                             <i class="fa-solid fa-check-circle"></i> Connected
@@ -262,10 +260,10 @@
                     </div>
                     <div class="flex items-center gap-3 mt-4 p-3 bg-gray-50 rounded-xl">
                         <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
-                             <img id="home-mentor-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena" alt="Avatar">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena" alt="Avatar">
                         </div>
                         <div>
-                            <p id="home-mentor-name-sub" class="text-sm font-bold text-gray-800">Elena Gomez</p>
+                            <p class="text-sm font-bold text-gray-800">Elena Gomez</p>
                             <p class="text-xs text-blue-600">Active now</p>
                         </div>
                     </div>
@@ -284,25 +282,24 @@
                     </div>
                 </div>
 
-                <!-- Quick Actions -->
+                <!-- Quick Actions / Grid -->
                 <h3 class="font-bold text-gray-800 mb-4">Explore</h3>
                 
-                <!-- NEW COMMUNITY BUTTON (FULL WIDTH) -->
-                <div onclick="goToScreen('screen-community')" class="bg-gradient-to-r from-teal-500 to-emerald-500 p-4 rounded-2xl shadow-md flex items-center justify-between cursor-pointer mb-4 text-white hover:opacity-90 transition">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-2xl backdrop-blur-sm">
-                            <i class="fa-solid fa-users"></i>
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    
+                    <!-- 1. Town & School (HIGHLIGHTED) -->
+                    <div class="col-span-2 bg-white p-4 rounded-2xl shadow-sm border border-blue-100 flex items-center gap-4 cursor-pointer hover:bg-blue-50 border-l-4 border-l-blue-500" onclick="goToScreen('screen-guide-town')">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl flex-shrink-0">
+                            <i class="fa-solid fa-city"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg">Student Community</h3>
-                            <p class="text-xs text-teal-100">Find exchange students near Zip 43210</p>
+                            <h3 class="font-bold text-gray-800">Town & School</h3>
+                            <p class="text-xs text-gray-500">Mascot, Best Pizza, Map...</p>
                         </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300 ml-auto"></i>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-white/50"></i>
-                </div>
 
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                    <!-- Local Guides Button -->
+                    <!-- 2. General Guides -->
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center h-32 cursor-pointer hover:border-blue-300 transition" onclick="goToScreen('screen-guides')">
                         <div class="w-12 h-12 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center text-xl mb-2">
                             <i class="fa-solid fa-book-open"></i>
@@ -310,7 +307,7 @@
                         <span class="text-sm font-medium text-gray-600">Local Guides</span>
                     </div>
                     
-                    <!-- Events Button -->
+                    <!-- 3. Events -->
                     <div class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center justify-center h-32 cursor-pointer hover:border-blue-300 transition" onclick="goToScreen('screen-events')">
                         <div class="w-12 h-12 bg-purple-100 text-purple-500 rounded-full flex items-center justify-center text-xl mb-2">
                             <i class="fa-solid fa-calendar-day"></i>
@@ -320,12 +317,12 @@
                 </div>
             </div>
 
-            <!-- Bottom Nav (HOME) -->
+            <!-- Bottom Nav -->
             <div class="bg-white border-t border-gray-200 py-3 px-6 flex justify-between items-center">
                 <button class="nav-btn active flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-home')">
                     <i class="fa-solid fa-house text-xl"></i> Home
                 </button>
-                <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-mentor-list')">
+                <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-match')">
                     <i class="fa-solid fa-magnifying-glass text-xl"></i> Match
                 </button>
                 <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="tryOpenChat()">
@@ -334,244 +331,81 @@
             </div>
         </div>
 
-        <!-- NEW SCREEN: STUDENT COMMUNITY -->
-        <div id="screen-community" class="screen bg-gray-50">
-            <div class="h-40 bg-teal-600 relative flex items-end p-6">
-                <button onclick="goToScreen('screen-home')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <div>
-                    <h2 class="text-2xl font-bold text-white">🌎 Community</h2>
-                    <p class="text-teal-100 text-sm"><i class="fa-solid fa-location-dot"></i> Students near Zip 43210</p>
-                </div>
-            </div>
-            
-            <div class="p-6 overflow-y-auto pb-20">
-                <p class="text-gray-500 mb-4 text-sm">Found 3 other exchange students in your area.</p>
-                
-                <!-- Community Member 1 -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-3 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Marco" alt="Marco">
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Marco Rossi</h4>
-                            <p class="text-xs text-gray-500">🇮🇹 From Italy • Lincoln High</p>
-                        </div>
-                    </div>
-                    <button class="bg-teal-50 text-teal-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-teal-100"><i class="fa-regular fa-paper-plane"></i></button>
-                </div>
-
-                <!-- Community Member 2 -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-3 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Yuki" alt="Yuki">
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Yuki Tanaka</h4>
-                            <p class="text-xs text-gray-500">🇯🇵 From Japan • North High</p>
-                        </div>
-                    </div>
-                    <button class="bg-teal-50 text-teal-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-teal-100"><i class="fa-regular fa-paper-plane"></i></button>
-                </div>
-
-                <!-- Community Member 3 -->
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 mb-3 flex items-center justify-between">
-                    <div class="flex items-center gap-3">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Lars" alt="Lars">
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-gray-800">Lars Jensen</h4>
-                            <p class="text-xs text-gray-500">🇩🇰 From Denmark • Lincoln High</p>
-                        </div>
-                    </div>
-                    <button class="bg-teal-50 text-teal-600 w-8 h-8 rounded-full flex items-center justify-center hover:bg-teal-100"><i class="fa-regular fa-paper-plane"></i></button>
-                </div>
-
-                <div class="mt-6 bg-blue-50 p-4 rounded-xl border border-blue-100 text-center">
-                    <h4 class="font-bold text-blue-800 text-sm mb-1">Meetup this Weekend?</h4>
-                    <p class="text-xs text-blue-600 mb-3">Organize a group trip to the mall.</p>
-                    <button class="bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-lg">Create Event</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- NEW SCREEN: MENTOR LIST (ALL VETERANS NOW) -->
-        <div id="screen-mentor-list" class="screen bg-gray-50">
-            <div class="p-6 pb-20 overflow-y-auto h-full">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Find Your Match</h2>
-                <p class="text-gray-500 mb-6">Connect with veterans who survived their exchange year.</p>
-
-                <!-- Mentor 1 (Elena - Spain) -->
-                <div onclick="selectMentor('Elena Gomez', 'Exchange Alumni', 'Lived in Ohio • Survived Homesickness', 'Sports, Cooking', 'Elena', '98%')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4 flex gap-4 cursor-pointer hover:border-blue-300 transition relative">
-                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-full">98% Match</div>
-                    <div class="w-16 h-16 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena" alt="Avatar">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">Elena Gomez</h3>
-                        <p class="text-xs text-blue-600 font-bold uppercase mb-1">Veteran Alumni</p>
-                        <p class="text-xs text-gray-500">🇪🇸 From Madrid</p>
-                        <div class="flex gap-1 mt-2">
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Sports</span>
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Cooking</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mentor 2 (Sam - Germany) -->
-                <div onclick="selectMentor('Sam Müller', 'Exchange Alumni', 'Exchange in Texas • Soccer Player', 'Soccer, German', 'Sam', '95%')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4 flex gap-4 cursor-pointer hover:border-blue-300 transition relative">
-                    <div class="absolute top-4 right-4 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-full">95% Match</div>
-                    <div class="w-16 h-16 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sam" alt="Avatar">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">Sam Müller</h3>
-                        <p class="text-xs text-blue-600 font-bold uppercase mb-1">Veteran Alumni</p>
-                        <p class="text-xs text-gray-500">🇩🇪 From Berlin</p>
-                        <div class="flex gap-1 mt-2">
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Soccer</span>
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Music</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mentor 3 (Sarah - France) -->
-                <div onclick="selectMentor('Sarah Dubois', 'Exchange Alumni', 'Exchange in California • Artist', 'Art, Fashion', 'Sarah', '89%')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4 flex gap-4 cursor-pointer hover:border-blue-300 transition relative">
-                    <div class="absolute top-4 right-4 bg-green-50 text-green-600 text-[10px] font-bold px-2 py-1 rounded-full">89% Match</div>
-                    <div class="w-16 h-16 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah" alt="Avatar">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">Sarah Dubois</h3>
-                        <p class="text-xs text-blue-600 font-bold uppercase mb-1">Veteran Alumni</p>
-                        <p class="text-xs text-gray-500">🇫🇷 From Paris</p>
-                        <div class="flex gap-1 mt-2">
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Art</span>
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Fashion</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mentor 4 (David - Korea) -->
-                <div onclick="selectMentor('David Kim', 'Exchange Alumni', 'Exchange in Florida • Gamer', 'Tech, Gaming', 'David', '85%')" class="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-4 flex gap-4 cursor-pointer hover:border-blue-300 transition relative">
-                    <div class="absolute top-4 right-4 bg-green-50 text-green-600 text-[10px] font-bold px-2 py-1 rounded-full">85% Match</div>
-                    <div class="w-16 h-16 bg-gray-200 rounded-full overflow-hidden flex-shrink-0">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=David" alt="Avatar">
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">David Kim</h3>
-                        <p class="text-xs text-blue-600 font-bold uppercase mb-1">Veteran Alumni</p>
-                        <p class="text-xs text-gray-500">🇰🇷 From Seoul</p>
-                        <div class="flex gap-1 mt-2">
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Tech</span>
-                            <span class="bg-gray-100 px-2 py-0.5 rounded text-[10px] text-gray-600">Gaming</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-             <!-- Bottom Nav (List) -->
-             <div class="bg-white border-t border-gray-200 py-3 px-6 flex justify-between items-center absolute bottom-0 w-full">
-                <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-home')">
-                    <i class="fa-solid fa-house text-xl"></i> Home
-                </button>
-                <button class="nav-btn active flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-mentor-list')">
-                    <i class="fa-solid fa-magnifying-glass text-xl"></i> Match
-                </button>
-                <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="tryOpenChat()">
-                    <i class="fa-solid fa-comment text-xl"></i> Chat
-                </button>
-            </div>
-        </div>
-
-        <!-- SCREEN: MENTOR PROFILE (Detail View) -->
-        <div id="screen-mentor-profile" class="screen bg-gray-50">
-            <div class="p-6">
-                <button onclick="goToScreen('screen-mentor-list')" class="text-gray-400 hover:text-gray-800 mb-4"><i class="fa-solid fa-arrow-left"></i> Back to List</button>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Mentor Profile</h2>
-                
-                <!-- Profile Card (Dynamic Content) -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100">
-                    <div class="h-32 bg-gradient-to-r from-indigo-500 to-purple-600 relative">
-                        <div class="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full shadow-sm">
-                            <i class="fa-solid fa-star"></i> TOP PICK
-                        </div>
-                        <div class="absolute -bottom-10 left-6 w-20 h-20 bg-white rounded-full p-1">
-                            <div class="w-full h-full bg-gray-200 rounded-full overflow-hidden">
-                                <img id="profile-img" src="" alt="Avatar" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pt-12 px-6 pb-6">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 id="profile-name" class="text-xl font-bold text-gray-800">Name</h3>
-                                <p id="profile-role" class="text-sm text-indigo-600 font-semibold">Role</p>
-                            </div>
-                            <div id="profile-match" class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-full font-bold">--% Match</div>
-                        </div>
-                        
-                        <hr class="my-4 border-gray-100">
-                        
-                        <div class="space-y-3">
-                            <div>
-                                <h4 class="text-xs font-bold text-gray-400 uppercase">Highlights</h4>
-                                <div class="flex gap-2 mt-1">
-                                    <span id="profile-tag-1" class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">Tag 1</span>
-                                    <span id="profile-tag-2" class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">Tag 2</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-gray-400 uppercase">Bio</h4>
-                                <p id="profile-bio" class="text-sm text-gray-600 leading-relaxed">...</p>
-                            </div>
-                        </div>
-
-                        <button onclick="connectAndChat()" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition">
-                            <i class="fa-regular fa-paper-plane"></i> Connect & Message
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCREEN: LOCAL GUIDES MENU (UPDATED) -->
+        <!-- SCREEN: LOCAL GUIDES MENU (UPDATED ORDER) -->
         <div id="screen-guides" class="screen bg-gray-50">
             <div class="p-6">
                 <button onclick="goToScreen('screen-home')" class="text-gray-400 hover:text-gray-800 mb-6 flex items-center gap-2"><i class="fa-solid fa-arrow-left"></i> Back to Home</button>
+                
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Survival Guides 🧭</h2>
+                <p class="text-gray-500 mb-6">Master your exchange year.</p>
+
                 <div class="space-y-4">
-                    <!-- Food & Shopping (NEW) -->
-                    <div onclick="goToScreen('screen-guide-spots')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                    <!-- 1. Before Flying -->
+                    <div onclick="goToScreen('screen-guide-flying')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-burger"></i></div>
-                            <div><h3 class="font-bold text-gray-800">Food, Shops & Jobs</h3></div>
+                            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-plane-departure"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Before Flying</h3>
+                                <p class="text-xs text-gray-500">Packing, Gifts, Documents...</p>
+                            </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300"></i>
                     </div>
-                     <!-- Packing & Docs (NEW) -->
-                     <div onclick="goToScreen('screen-guide-packing')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+
+                    <!-- 2. Food & Shops -->
+                    <div onclick="goToScreen('screen-guide-food')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-suitcase"></i></div>
-                            <div><h3 class="font-bold text-gray-800">Before You Fly</h3></div>
+                            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Food & Shops</h3>
+                                <p class="text-xs text-gray-500">Tipping, Snacks, Brands...</p>
+                            </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300"></i>
                     </div>
-                     <!-- USA Places (NEW) -->
-                     <div onclick="goToScreen('screen-guide-usa')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+
+                    <!-- 3. Bucket List -->
+                    <div onclick="goToScreen('screen-guide-bucket')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-flag-usa"></i></div>
-                            <div><h3 class="font-bold text-gray-800">USA Bucket List</h3></div>
+                            <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-check-double"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Bucket List</h3>
+                                <p class="text-xs text-gray-500">Must-do before you leave!</p>
+                            </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300"></i>
                     </div>
-                    <!-- Sports -->
+
+                    <!-- 4. Sports & Traditions (RESTORED) -->
                     <div onclick="goToScreen('screen-guide-sports')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-xl"><i class="fa-solid fa-football"></i></div>
-                            <div><h3 class="font-bold text-gray-800">Sports & Traditions</h3></div>
+                            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-football"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Sports & Traditions</h3>
+                                <p class="text-xs text-gray-500">Homecoming, Prom, Touchdowns...</p>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-gray-300"></i>
+                    </div>
+
+                    <!-- 5. Local Community (NEW) -->
+                    <div onclick="goToScreen('screen-guide-community')" class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-users"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800">Local Community</h3>
+                                <p class="text-xs text-gray-500">Clubs, Volunteering, Events...</p>
+                            </div>
                         </div>
                         <i class="fa-solid fa-chevron-right text-gray-300"></i>
                     </div>
@@ -579,106 +413,204 @@
             </div>
         </div>
 
-        <!-- NEW SCREEN: FOOD & SHOPPING & JOBS GUIDE -->
-        <div id="screen-guide-spots" class="screen bg-white">
+        <!-- NEW SCREEN: BEFORE FLYING -->
+        <div id="screen-guide-flying" class="screen bg-white">
+            <div class="h-40 bg-indigo-600 relative flex items-end p-6">
+                <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <h2 class="text-2xl font-bold text-white">✈️ Before Flying</h2>
+            </div>
+            <div class="p-6 space-y-4 overflow-y-auto pb-20">
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <h4 class="font-bold text-gray-800 mb-2">Host Family Gifts 🎁</h4>
+                    <p class="text-sm text-gray-600">Bring something small from your country! Olive oil, local sweets, or a keychain. Don't bring fresh fruit (Customs will take it!).</p>
+                </div>
+                <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <h4 class="font-bold text-gray-800 mb-2">Packing Essentials 🔌</h4>
+                    <p class="text-sm text-gray-600">Buy a <strong>US Power Adapter</strong> before you leave. American plugs are different (Type A/B)!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SCREEN: FOOD & SHOPS -->
+        <div id="screen-guide-food" class="screen bg-white">
+            <div class="h-40 bg-green-600 relative flex items-end p-6">
+                <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <h2 class="text-2xl font-bold text-white">🍔 Food & Shops</h2>
+            </div>
+            <div class="p-6 space-y-4 overflow-y-auto pb-20">
+                <div class="bg-red-50 p-4 rounded-xl border border-red-200">
+                    <h4 class="font-bold text-red-800 mb-1">⚠️ THE TIPPING RULE</h4>
+                    <p class="text-sm text-red-700">In restaurants with waiters, you MUST tip <strong>15-20%</strong>. It is rude not to!</p>
+                </div>
+                <div class="flex items-center gap-3 py-2">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">💊</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm">CVS / Walgreens</h4>
+                        <p class="text-xs text-gray-500">Pharmacy + Snacks + Makeup.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 py-2">
+                    <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-lg">🎯</div>
+                    <div>
+                        <h4 class="font-bold text-gray-800 text-sm">Target</h4>
+                        <p class="text-xs text-gray-500">Clothes, Room Decor & Food.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SCREEN: BUCKET LIST -->
+        <div id="screen-guide-bucket" class="screen bg-white">
             <div class="h-40 bg-yellow-500 relative flex items-end p-6">
                 <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <h2 class="text-2xl font-bold text-white">🍔 Food, Shops & Jobs</h2>
+                <h2 class="text-2xl font-bold text-white">✅ Bucket List</h2>
             </div>
-            <div class="p-6 space-y-4 overflow-y-auto pb-20">
-                <!-- Food Card -->
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-utensils text-yellow-500 mr-2"></i>Typical Food</h3>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li>• <strong>Diners:</strong> Go for Pancakes or Milkshakes. Open 24/7!</li>
-                        <li>• <strong>Burgers:</strong> In-N-Out or Shake Shack are must-trys.</li>
-                    </ul>
+            <div class="p-6 space-y-3 overflow-y-auto pb-20">
+                <p class="text-sm text-gray-500 mb-4">Tap to check off your goals!</p>
+                
+                <div onclick="this.classList.toggle('opacity-50')" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <div class="w-6 h-6 border-2 border-yellow-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-check text-xs text-yellow-500"></i></div>
+                    <span class="text-gray-800 font-medium">Go to a Football Game 🏈</span>
                 </div>
-
-                <!-- Shopping Card -->
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-shirt text-pink-500 mr-2"></i>Shopping Spots</h3>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li>• <strong>Essentials:</strong> Target & Walmart (They have everything!).</li>
-                        <li>• <strong>Clothes:</strong> TJ Maxx, Ross, Marshalls (Great brands, low prices).</li>
-                        <li>• <strong>Thrift Stores:</strong> Goodwill / Savers (Vintage finds).</li>
-                        <li>• <strong>Tech:</strong> Best Buy.</li>
-                    </ul>
+                <div onclick="this.classList.toggle('opacity-50')" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <div class="w-6 h-6 border-2 border-yellow-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-check text-xs text-yellow-500"></i></div>
+                    <span class="text-gray-800 font-medium">Try S'mores at a bonfire 🔥</span>
                 </div>
-
-                <!-- Jobs Card -->
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-briefcase text-blue-500 mr-2"></i>Jobs & Volunteering</h3>
-                    <p class="text-xs text-red-500 mb-2 italic">*Visa Note: J-1 students mostly can't work for pay, but you can volunteer!</p>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li>• <strong>Volunteering:</strong> Animal Shelters, Food Banks, Public Library. (Great for making friends!)</li>
-                        <li>• <strong>Cultural Context (What US teens do):</strong> Lifeguarding, Camp Counselor, Barista (Starbucks), Babysitting.</li>
-                    </ul>
+                <div onclick="this.classList.toggle('opacity-50')" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <div class="w-6 h-6 border-2 border-yellow-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-check text-xs text-yellow-500"></i></div>
+                    <span class="text-gray-800 font-medium">Go to Prom / Homecoming 💃</span>
+                </div>
+                <div onclick="this.classList.toggle('opacity-50')" class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition">
+                    <div class="w-6 h-6 border-2 border-yellow-500 rounded-full flex items-center justify-center"><i class="fa-solid fa-check text-xs text-yellow-500"></i></div>
+                    <span class="text-gray-800 font-medium">Visit a big US City 🏙️</span>
                 </div>
             </div>
         </div>
 
-        <!-- NEW SCREEN: PACKING & DOCS -->
-        <div id="screen-guide-packing" class="screen bg-white">
-            <div class="h-40 bg-blue-600 relative flex items-end p-6">
-                <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <h2 class="text-2xl font-bold text-white">🧳 Before You Fly</h2>
-            </div>
-            <div class="p-6 space-y-4 overflow-y-auto pb-20">
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-passport text-blue-500 mr-2"></i>Essential Documents</h3>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li><i class="fa-solid fa-check text-green-500"></i> Passport (Valid for 6+ months)</li>
-                        <li><i class="fa-solid fa-check text-green-500"></i> Visa (J-1 or F-1)</li>
-                        <li><i class="fa-solid fa-check text-green-500"></i> DS-2019 Form (Don't lose this!)</li>
-                        <li><i class="fa-solid fa-check text-green-500"></i> Health Insurance Proof</li>
-                    </ul>
-                </div>
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm">
-                    <h3 class="font-bold text-gray-800 mb-2"><i class="fa-solid fa-shirt text-purple-500 mr-2"></i>Packing Essentials</h3>
-                    <ul class="text-sm text-gray-600 space-y-2">
-                        <li>• <strong>Power Adapter:</strong> US uses Type A/B (Flat pins).</li>
-                        <li>• <strong>Medications:</strong> Bring prescription supply & English notes.</li>
-                        <li>• <strong>Layers:</strong> Schools are cold (AC) even in summer! Bring hoodies.</li>
-                        <li>• <strong>Gifts:</strong> Small gifts for your host family.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-         <!-- NEW SCREEN: USA BUCKET LIST -->
-         <div id="screen-guide-usa" class="screen bg-white">
+        <!-- SCREEN: SPORTS GUIDE (RESTORED) -->
+        <div id="screen-guide-sports" class="screen bg-white">
             <div class="h-40 bg-red-600 relative flex items-end p-6">
                 <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <h2 class="text-2xl font-bold text-white">🇺🇸 USA Bucket List</h2>
+                <h2 class="text-2xl font-bold text-white">🇺🇸 Sports & Fun</h2>
+            </div>
+            <div class="p-6 space-y-6 overflow-y-auto pb-20">
+                <!-- Card 1 -->
+                <div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-2"><i class="fa-solid fa-football text-red-600 mr-2"></i>Football Basics</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-2">It is NOT soccer! The goal is to get the oval ball to the end zone.</p>
+                    <div class="bg-red-50 p-3 rounded-lg border border-red-100">
+                        <p class="text-xs font-bold text-red-800">Key Term: "Touchdown"</p>
+                        <p class="text-xs text-red-600">Worth 6 points. Cheer loudly when this happens!</p>
+                    </div>
+                </div>
+                <hr class="border-gray-100">
+                <!-- Card 2 -->
+                <div>
+                    <h3 class="font-bold text-gray-800 text-lg mb-2"><i class="fa-solid fa-crown text-yellow-500 mr-2"></i>Homecoming vs Prom</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        <strong>Homecoming (Fall):</strong> Casual dance, focused on the Football game.<br><br>
+                        <strong>Prom (Spring):</strong> Formal dance (suits & dresses). Mainly for Seniors (12th grade).
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW SCREEN: LOCAL COMMUNITY -->
+        <div id="screen-guide-community" class="screen bg-white">
+            <div class="h-40 bg-teal-600 relative flex items-end p-6">
+                <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <h2 class="text-2xl font-bold text-white">🤝 Community</h2>
             </div>
             <div class="p-6 space-y-4 overflow-y-auto pb-20">
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex gap-3">
-                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">🗽</div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">New York City</h3>
-                        <p class="text-sm text-gray-600">Times Square, Central Park, Statue of Liberty.</p>
+                <div class="bg-teal-50 p-4 rounded-xl border border-teal-200">
+                    <h4 class="font-bold text-teal-800 mb-2"><i class="fa-solid fa-hand-holding-heart mr-2"></i>Volunteer & Service</h4>
+                    <p class="text-sm text-gray-600">Join the "Community Service Club". You need <strong>10 hours</strong> to get a certificate! Ask Mr. Smith in Room 102.</p>
+                </div>
+                
+                <h3 class="font-bold text-gray-800 mt-4 mb-2">School Clubs</h3>
+                <div class="space-y-2">
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center"><i class="fa-solid fa-language"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">International Club</h4>
+                            <p class="text-xs text-gray-500">Tuesdays @ 3:30pm • Library</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
+                        <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center"><i class="fa-solid fa-masks-theater"></i></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800 text-sm">Drama Club</h4>
+                            <p class="text-xs text-gray-500">Thursdays @ 4:00pm • Auditorium</p>
+                        </div>
                     </div>
                 </div>
-                <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex gap-3">
-                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">🎢</div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">Orlando, Florida</h3>
-                        <p class="text-sm text-gray-600">Disney World & Universal Studios.</p>
+            </div>
+        </div>
+
+        <!-- SCREEN: TOWN & SCHOOL INFO (LINKED FROM HOME) -->
+        <div id="screen-guide-town" class="screen bg-white">
+            <div class="h-44 bg-blue-700 relative flex items-end p-6">
+                <button onclick="goToScreen('screen-home')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <div>
+                    <span class="bg-blue-800 text-blue-200 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide">Your Location</span>
+                    <h2 class="text-2xl font-bold text-white mt-1">Springfield, OH</h2>
+                </div>
+            </div>
+            
+            <div class="p-6 -mt-6 rounded-t-3xl bg-white flex-1 overflow-y-auto">
+                <!-- School Profile Section -->
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-school text-blue-600"></i> Lincoln High School
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 gap-3 mb-4">
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+                            <div class="text-xs text-gray-400 font-bold uppercase">Mascot</div>
+                            <div class="text-lg font-bold text-gray-800">🐯 The Tigers</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 text-center">
+                            <div class="text-xs text-gray-400 font-bold uppercase">Colors</div>
+                            <div class="text-lg font-bold text-blue-600">Blue & Gold</div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-red-50 p-4 rounded-xl border border-red-100">
+                        <p class="text-xs font-bold text-red-800 uppercase mb-1">⚠️ The Rival</p>
+                        <p class="text-sm text-gray-700">Our rival is <strong>Central High</strong>. Never wear red on game days!</p>
                     </div>
                 </div>
-                 <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex gap-3">
-                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">⛰️</div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">Grand Canyon</h3>
-                        <p class="text-sm text-gray-600">Arizona. The most breathtaking view.</p>
-                    </div>
-                </div>
-                 <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-sm flex gap-3">
-                    <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">🎬</div>
-                    <div>
-                        <h3 class="font-bold text-gray-800">Los Angeles</h3>
-                        <p class="text-sm text-gray-600">Hollywood Sign, Santa Monica Pier.</p>
+
+                <!-- Town Guide Section -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-location-dot text-green-600"></i> Town Hotspots
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                            <div class="w-10 h-10 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-pizza-slice"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-sm">Tony's Pizza</h4>
+                                <p class="text-xs text-gray-500">Best slice in town ($2). All students go here on Fridays.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start gap-3 pb-3 border-b border-gray-100">
+                            <div class="w-10 h-10 bg-purple-100 text-purple-500 rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-bag-shopping"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-sm">Grandview Mall</h4>
+                                <p class="text-xs text-gray-500">Main hangout spot. The cinema is on the 2nd floor.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 bg-green-100 text-green-500 rounded-full flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-tree"></i></div>
+                            <div>
+                                <h4 class="font-bold text-gray-800 text-sm">Riverside Park</h4>
+                                <p class="text-xs text-gray-500">Great for running. Safe during the day.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -688,72 +620,137 @@
         <div id="screen-events" class="screen bg-white">
             <div class="h-40 bg-purple-600 relative flex items-end p-6">
                 <button onclick="goToScreen('screen-home')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <div class="w-full flex justify-between items-end"><h2 class="text-2xl font-bold text-white">📅 Events</h2></div>
+                <div class="w-full flex justify-between items-end">
+                     <h2 class="text-2xl font-bold text-white">📅 Events</h2>
+                     <span class="text-purple-200 text-sm font-bold">DECEMBER 2024</span>
+                </div>
             </div>
             <div class="p-6 flex-1 overflow-y-auto">
+                <!-- Calendar Visual -->
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-6">
-                    <div class="calendar-grid text-gray-400 mb-2 font-bold text-xs"><div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div></div>
+                    <div class="calendar-grid text-gray-400 mb-2 font-bold text-xs">
+                        <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                    </div>
                     <div class="calendar-grid text-gray-600">
-                        <div></div><div></div><div></div><div></div><div>1</div><div>2</div><div>3</div>
-                        <div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div>
-                        <div>11</div><div class="calendar-day event">12</div><div class="calendar-day today">13</div><div>14</div><div>15</div><div>16</div><div>17</div>
-                        <div class="calendar-day event">18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div>
-                        <div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div>
+                        <div class="text-gray-300">1</div><div class="text-gray-300">2</div><div class="text-gray-300">3</div><div class="text-gray-300">4</div><div>5</div><div>6</div><div>7</div>
+                        <div>8</div><div>9</div><div>10</div><div>11</div><div class="calendar-day event">12</div><div class="calendar-day today">13</div><div>14</div>
+                        <div>15</div><div>16</div><div>17</div><div class="calendar-day event">18</div><div>19</div><div>20</div><div>21</div>
+                        <div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div>
+                        <div>29</div><div>30</div><div>31</div>
                     </div>
                 </div>
+
                 <h3 class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">Upcoming Activities</h3>
+                
                 <div class="space-y-4">
+                    <!-- Event 1 -->
                     <div class="flex gap-4">
                         <div class="flex flex-col items-center bg-purple-50 rounded-lg p-2 min-w-[60px] h-16 justify-center">
-                            <span class="text-xs text-purple-600 font-bold">DEC</span><span class="text-xl font-bold text-gray-800">12</span>
+                            <span class="text-xs text-purple-600 font-bold">DEC</span>
+                            <span class="text-xl font-bold text-gray-800">12</span>
                         </div>
-                        <div><h4 class="font-bold text-gray-800">Pizza Night 🍕</h4><p class="text-xs text-gray-500">6:00 PM • Cafeteria</p></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">International Pizza Night 🍕</h4>
+                            <p class="text-xs text-gray-500 mb-1"><i class="fa-regular fa-clock"></i> 6:00 PM • School Cafeteria</p>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px]">Social</span>
+                        </div>
                     </div>
+
+                     <!-- Event 2 -->
                      <div class="flex gap-4">
                         <div class="flex flex-col items-center bg-purple-50 rounded-lg p-2 min-w-[60px] h-16 justify-center">
-                            <span class="text-xs text-purple-600 font-bold">DEC</span><span class="text-xl font-bold text-gray-800">18</span>
+                            <span class="text-xs text-purple-600 font-bold">DEC</span>
+                            <span class="text-xl font-bold text-gray-800">18</span>
                         </div>
-                        <div><h4 class="font-bold text-gray-800">Football Game 🏈</h4><p class="text-xs text-gray-500">7:30 PM • Stadium</p></div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Varsity Football Game 🏈</h4>
+                            <p class="text-xs text-gray-500 mb-1"><i class="fa-regular fa-clock"></i> 7:30 PM • Main Stadium</p>
+                            <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-[10px]">Sports</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- SCREEN: SPORTS GUIDE -->
-        <div id="screen-guide-sports" class="screen bg-white">
-            <div class="h-40 bg-red-600 relative flex items-end p-6">
-                <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <h2 class="text-2xl font-bold text-white">🇺🇸 Sports & Fun</h2>
-            </div>
-            <div class="p-6 space-y-6 overflow-y-auto pb-20">
-                <div><h3 class="font-bold text-gray-800 text-lg mb-2">Football Basics</h3><p class="text-gray-600 text-sm">It's not soccer! Touchdowns are 6 points.</p></div>
-            </div>
-        </div>
+        <!-- SCREEN 4: MATCHING -->
+        <div id="screen-match" class="screen bg-gray-50">
+            <div class="p-6">
+                <button onclick="goToScreen('screen-home')" class="text-gray-400 hover:text-gray-800 mb-4"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">New Match</h2>
+                <p class="text-gray-500 mb-6">Based on your origin: 🇪🇸 Spain</p>
 
-        <!-- SCREEN: MAP HACKS -->
-        <div id="screen-guide-map" class="screen bg-white">
-            <div class="h-40 bg-teal-600 relative flex items-end p-6">
-                <button onclick="goToScreen('screen-guides')" class="absolute top-6 left-6 text-white/80 hover:text-white"><i class="fa-solid fa-arrow-left"></i> Back</button>
-                <h2 class="text-2xl font-bold text-white">🏫 School Hacks</h2>
-            </div>
-            <div class="p-6 space-y-4 overflow-y-auto pb-20">
-                <div><h4 class="font-bold text-gray-800">Best Bathroom 🚽</h4><p class="text-sm text-gray-600">Building B, near Art Room.</p></div>
+                <!-- Profile Card -->
+                <div class="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100">
+                    <div class="h-32 bg-gradient-to-r from-indigo-500 to-purple-600 relative">
+                        <div class="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            <i class="fa-solid fa-star"></i> VETERAN
+                        </div>
+                        <div class="absolute -bottom-10 left-6 w-20 h-20 bg-white rounded-full p-1">
+                            <div class="w-full h-full bg-gray-200 rounded-full overflow-hidden">
+                                <!-- Placeholder Image -->
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena" alt="Avatar" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-12 px-6 pb-6">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Elena Gomez</h3>
+                                <p class="text-sm text-indigo-600 font-semibold">Exchange Alumni '24 • Madrid</p>
+                            </div>
+                            <div class="bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded-full font-bold">100% Match</div>
+                        </div>
+                        
+                        <hr class="my-4 border-gray-100">
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-400 uppercase">Experience</h4>
+                                <div class="flex gap-2 mt-1">
+                                    <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">Lived in Ohio</span>
+                                    <span class="bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-xs">Survived Homesickness</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-gray-400 uppercase">Bio</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed">¡Hola! I did my exchange year last year. I can help you understand American host families and deal with culture shock.</p>
+                            </div>
+                        </div>
+
+                        <button onclick="openChatWithMatch()" class="w-full mt-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg transition">
+                            <i class="fa-regular fa-paper-plane"></i> Send Message
+                        </button>
+                    </div>
+                </div>
+                <!-- Nav -->
+                <div class="mt-8 border-t pt-4 flex justify-between">
+                     <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-home')">
+                        <i class="fa-solid fa-house text-xl"></i> Home
+                    </button>
+                    <button class="nav-btn active flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-match')">
+                        <i class="fa-solid fa-magnifying-glass text-xl"></i> Match
+                    </button>
+                    <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="tryOpenChat()">
+                        <i class="fa-solid fa-comment text-xl"></i> Chat
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- SCREEN 5: CHAT -->
-        <div id="screen-chat" class="screen bg-white flex flex-col h-full">
+        <!-- Fixed: Removed 'flex' class so it respects display:none from CSS -->
+        <div id="screen-chat" class="screen bg-white flex-col h-full">
             <!-- Chat Header -->
             <div class="bg-white p-4 shadow-sm flex items-center gap-4 border-b border-gray-100 z-10">
                 <button onclick="goToScreen('screen-home')" class="text-gray-400 hover:text-gray-800"><i class="fa-solid fa-arrow-left"></i></button>
                 <div class="relative">
                     <div class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden">
-                        <img id="chat-header-img" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena" alt="Avatar">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Elena" alt="Avatar">
                     </div>
                     <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></div>
                 </div>
                 <div>
-                    <h3 id="chat-header-name" class="font-bold text-gray-800 text-sm">Elena Gomez</h3>
+                    <h3 class="font-bold text-gray-800 text-sm">Elena Gomez</h3>
                     <p class="text-xs text-green-600">Typing...</p>
                 </div>
             </div>
@@ -761,12 +758,21 @@
             <!-- Chat Messages -->
             <div class="flex-1 overflow-y-auto p-4 flex flex-col bg-gray-50" id="chat-container">
                 <div class="text-center text-xs text-gray-400 my-4">Today, 10:23 AM</div>
-                <div class="chat-bubble-them">Hi! I saw you just arrived. How are you feeling?</div>
-                <div class="chat-bubble-me">Hi! A bit overwhelmed honestly. My host family is nice but...</div>
-                <div class="chat-bubble-them">Totalmente normal. The first week is the hardest. What happened?</div>
+                
+                <div class="chat-bubble-them">
+                    ¡Hola Jorge! I saw you just arrived. How are you feeling?
+                </div>
+                
+                <div class="chat-bubble-me">
+                    Hi Elena! A bit overwhelmed honestly. My host family is nice but...
+                </div>
+
+                <div class="chat-bubble-them">
+                    Totalmente normal. The first week is the hardest. What happened?
+                </div>
             </div>
 
-            <!-- Chat Input (Sticky Bottom) -->
+            <!-- Chat Input -->
             <div class="p-4 border-t border-gray-100 bg-white">
                 <div class="flex gap-2">
                     <input type="text" placeholder="Type a message..." class="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -775,6 +781,19 @@
                     </button>
                 </div>
             </div>
+            
+             <!-- Bottom Nav (Chat) -->
+             <div class="bg-white border-t border-gray-200 py-3 px-6 flex justify-between items-center">
+                <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-home')">
+                    <i class="fa-solid fa-house text-xl"></i> Home
+                </button>
+                <button class="nav-btn flex flex-col items-center gap-1 text-xs" onclick="goToScreen('screen-match')">
+                    <i class="fa-solid fa-magnifying-glass text-xl"></i> Match
+                </button>
+                <button class="nav-btn active flex flex-col items-center gap-1 text-xs" onclick="tryOpenChat()">
+                    <i class="fa-solid fa-comment text-xl"></i> Chat
+                </button>
+            </div>
         </div>
 
     </div>
@@ -782,11 +801,13 @@
     <script>
         // --- LOGIC STATE ---
         let isMatched = false;
-        let currentMentor = { name: "Elena Gomez", img: "Elena" }; // Default
 
         // --- INIT ---
+        // Force Splash screen on load
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById('screen-splash').classList.add('active');
+
+        // Wait 2.5 seconds, then go to Login
         setTimeout(() => {
             document.getElementById('screen-splash').classList.remove('active');
             document.getElementById('screen-login').classList.add('active');
@@ -794,22 +815,21 @@
 
         // --- NAVIGATION FUNCTIONS ---
         function login() {
-            document.getElementById('user-greeting').innerText = "Hi, Jorge 👋"; 
+            document.getElementById('user-greeting').innerText = "Hi, Jorge 👋"; // Default Login name
+            // Transition from Login to Home
             document.getElementById('screen-login').classList.remove('active');
             document.getElementById('screen-home').classList.add('active');
         }
         
+        // NEW: Signup Logic
         function completeSignup() {
             const nameInput = document.getElementById('signup-name').value;
-            const zipInput = document.getElementById('signup-zip').value; // Get Zip
-            
             const name = nameInput ? nameInput.split(' ')[0] : "Student";
-            const zip = zipInput || "43210"; // Default zip if empty
-
-            document.getElementById('user-greeting').innerText = "Hi, " + name + " 👋";
-            // Update Location Badge on Home
-            document.getElementById('user-location').innerHTML = `<i class="fa-solid fa-location-dot"></i> Community: Zip ${zip}`;
             
+            // Personalize Home
+            document.getElementById('user-greeting').innerText = "Hi, " + name + " 👋";
+            
+            // Go to home
             document.getElementById('screen-signup').classList.remove('active');
             document.getElementById('screen-home').classList.add('active');
         }
@@ -826,78 +846,48 @@
         }
 
         function goToScreen(screenId) {
+            // Hide all
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            // Show target
             document.getElementById(screenId).classList.add('active');
-        }
-
-        // --- NEW MENTOR SELECTION LOGIC ---
-        function selectMentor(name, role, bio, tags, imgSeed, percent) {
-            // 1. Update Profile Screen Data
-            document.getElementById('profile-name').innerText = name;
-            document.getElementById('profile-role').innerText = role;
-            document.getElementById('profile-bio').innerText = bio;
-            document.getElementById('profile-img').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${imgSeed}`;
-            document.getElementById('profile-match').innerText = percent + " Match";
-            
-            // Update tags
-            const tagArray = tags.split(',');
-            document.getElementById('profile-tag-1').innerText = tagArray[0] || "General";
-            document.getElementById('profile-tag-2').innerText = tagArray[1] || "Student";
-            
-            // Store for global use
-            currentMentor = { name: name, img: imgSeed, role: role };
-
-            // 2. Go to Profile Screen
-            goToScreen('screen-mentor-profile');
-        }
-
-        function connectAndChat() {
-            // User clicked "Connect" on profile
-            isMatched = true;
-            
-            // Update Home Screen Cards
-            document.getElementById('card-welcome').classList.add('hidden');
-            
-            // Update "Active Mentor" card on Home with selected person
-            const mentorCard = document.getElementById('card-mentor-active');
-            mentorCard.classList.remove('hidden');
-            mentorCard.style.display = 'block';
-            
-            document.getElementById('home-mentor-name').innerText = "My Mentor";
-            document.getElementById('home-mentor-name-sub').innerText = currentMentor.name;
-            document.getElementById('home-mentor-role').innerText = currentMentor.role;
-            document.getElementById('home-mentor-img').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentMentor.img}`;
-            
-            // Update Chat Header
-            document.getElementById('chat-header-name').innerText = currentMentor.name;
-            document.getElementById('chat-header-img').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentMentor.img}`;
-
-            // Go to Chat
-            goToScreen('screen-chat');
         }
 
         function tryOpenChat() {
             if (!isMatched) {
-                alert("🔒 Locked!\n\nPlease find a mentor first in the 'Match' tab.");
-                goToScreen('screen-mentor-list');
+                alert("🔒 Locked!\n\nYou need to find a mentor first. Go to the 'Match' tab to connect with someone.");
             } else {
                 goToScreen('screen-chat');
             }
         }
 
         function openChatWithMatch() {
-            // Already connected, just go to chat
+            // Activate match state
+            isMatched = true;
+            
+            // Update Home Screen UI (Swap Welcome Card for Mentor Card)
+            document.getElementById('card-welcome').classList.add('hidden');
+            
+            // Show mentor card by modifying display style
+            const mentorCard = document.getElementById('card-mentor-active');
+            mentorCard.classList.remove('hidden');
+            mentorCard.style.display = 'block';
+
+            // Go to chat
             goToScreen('screen-chat');
         }
 
         function sendMessage() {
             const container = document.getElementById('chat-container');
+            // Simulate sent message
             const myMsg = document.createElement('div');
             myMsg.className = 'chat-bubble-me animate-pulse';
             myMsg.innerText = "I don't know if I should offer to help with dishes...";
             container.appendChild(myMsg);
+            
+            // Scroll to bottom
             container.scrollTop = container.scrollHeight;
 
+            // Simulate reply
             setTimeout(() => {
                 myMsg.classList.remove('animate-pulse');
                 const theirMsg = document.createElement('div');
